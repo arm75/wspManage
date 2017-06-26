@@ -1,0 +1,100 @@
+﻿@model IEnumerable<WSPManage.Models.customer>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Active)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MiddleName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhysicalAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhysicalCity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhysicalState)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhysicalZipcode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HomePhoneNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkPhoneNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CellPhoneNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AlternateNumber)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Active)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MiddleName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PhysicalAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PhysicalCity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PhysicalState)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PhysicalZipcode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HomePhoneNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkPhoneNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CellPhoneNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AlternateNumber)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
