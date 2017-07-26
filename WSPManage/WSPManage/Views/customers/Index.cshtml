@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<WSPManage.Models.customer>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Customers";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Customers</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New Customer", "Create")
 </p>
 <table class="table">
     <tr>
@@ -23,18 +23,6 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.LastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PhysicalAddress)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PhysicalCity)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PhysicalState)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PhysicalZipcode)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.HomePhoneNumber)
@@ -66,18 +54,6 @@
             @Html.DisplayFor(modelItem => item.LastName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.PhysicalAddress)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PhysicalCity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PhysicalState)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PhysicalZipcode)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.HomePhoneNumber)
         </td>
         <td>
@@ -90,9 +66,9 @@
             @Html.DisplayFor(modelItem => item.AlternateNumber)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Edit", "Edit", new { id=item.customerID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.customerID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.customerID })
         </td>
     </tr>
 }

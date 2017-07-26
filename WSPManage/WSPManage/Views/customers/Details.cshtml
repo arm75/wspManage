@@ -5,10 +5,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>Details for customer <b>@Html.ValueFor(model => model.FirstName) @Html.ValueFor(model => model.MiddleName) @Html.ValueFor(model => model.LastName)</b>(#@Html.ValueFor(model => model.customerID))</h2>
 
 <div>
-    <h4>customer</h4>
+    <!-- <h4>customer</h4> -->
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -107,38 +107,7 @@
             @Html.DisplayFor(model => model.MailingZipcode)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PhysicalAddress)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PhysicalAddress)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PhysicalCity)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PhysicalCity)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PhysicalState)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PhysicalState)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PhysicalZipcode)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PhysicalZipcode)
-        </dd>
-
+        
         <dt>
             @Html.DisplayNameFor(model => model.HomePhoneNumber)
         </dt>
@@ -181,7 +150,17 @@
 
     </dl>
 </div>
+
+<hr />
+
+Date Modified: <b>@Html.ValueFor(model => model.DateModified)</b> &nbsp; &nbsp; | &nbsp; &nbsp;
+User Modified: <b>@Html.ValueFor(model => model.UserModified)</b> &nbsp; &nbsp; | &nbsp; &nbsp;
+Date Created: <b>@Html.ValueFor(model => model.DateCreated)</b> &nbsp; &nbsp; | &nbsp; &nbsp;
+User Created: <b>@Html.ValueFor(model => model.UserCreated)</b>
+
+<hr />
+
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.customerID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

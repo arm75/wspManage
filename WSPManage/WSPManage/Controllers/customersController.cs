@@ -47,10 +47,11 @@ namespace WSPManage.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,Active,FirstName,MiddleName,LastName,SSN,EIN,ContractName,AlternateName,MailingAddress,MailingCity,MailingState,MailingZipcode,PhysicalAddress,PhysicalCity,PhysicalState,PhysicalZipcode,HomePhoneNumber,WorkPhoneNumber,CellPhoneNumber,AlternateNumber,Notes")] customer customer)
+        public async Task<ActionResult> Create([Bind(Include = "customerID,Active,FirstName,MiddleName,LastName,SSN,EIN,ContractName,AlternateName,MailingAddress,MailingCity,MailingState,MailingZipcode,HomePhoneNumber,WorkPhoneNumber,CellPhoneNumber,AlternateNumber,Notes,DateCreated,UserCreated,DateModified,UserModified")] customer customer)
         {
             if (ModelState.IsValid)
             {
+                customer.Active = true;
                 db.customers.Add(customer);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -79,7 +80,7 @@ namespace WSPManage.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,Active,FirstName,MiddleName,LastName,SSN,EIN,ContractName,AlternateName,MailingAddress,MailingCity,MailingState,MailingZipcode,PhysicalAddress,PhysicalCity,PhysicalState,PhysicalZipcode,HomePhoneNumber,WorkPhoneNumber,CellPhoneNumber,AlternateNumber,Notes")] customer customer)
+        public async Task<ActionResult> Edit([Bind(Include = "customerID,Active,FirstName,MiddleName,LastName,SSN,EIN,ContractName,AlternateName,MailingAddress,MailingCity,MailingState,MailingZipcode,HomePhoneNumber,WorkPhoneNumber,CellPhoneNumber,AlternateNumber,Notes,DateCreated,UserCreated,DateModified,UserModified")] customer customer)
         {
             if (ModelState.IsValid)
             {

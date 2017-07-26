@@ -1,4 +1,6 @@
 ﻿body {
+    background-image: url("site/images/bg-pinstripe.png");
+    background-repeat: repeat;
     padding-top: 50px;
     padding-bottom: 20px;
 }
@@ -7,6 +9,21 @@
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+}
+
+.body-content-inner {
+    background-color: #ddd3a3;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.custom-form-section-header {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    background-color: #db9654;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
