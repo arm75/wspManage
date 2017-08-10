@@ -69,5 +69,20 @@ namespace WSPManage.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /*
+        ///    jQuery Masked Input Plugin
+        ///    Copyright (c) 2007 - 2015 Josh Bush (digitalbush.com)
+        ///    Licensed under the MIT license (http://digitalbush.com/projects/masked-input-plugin/#license)
+        ///    Version: 1.4.1
+        ///*/
+        ///!function(a){&quot;function&quot;==typeof define&amp;&amp;define.amd?define([&quot;jquery&quot;],a):a(&quot;object&quot;==typeof exports?require(&quot;jquery&quot;):jQuery)}(function(a){var b,c=navigator.userAgent,d=/iphone/i.test(c),e=/chrome/i.test(c),f=/android/i.test(c);a.mask={definitions:{9:&quot;[0-9]&quot;,a:&quot;[A-Za-z]&quot;,&quot;*&quot;:&quot;[A-Za-z0-9]&quot;},autoclear: [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string jquery_maskedinput_min {
+            get {
+                return ResourceManager.GetString("jquery_maskedinput_min", resourceCulture);
+            }
+        }
     }
 }

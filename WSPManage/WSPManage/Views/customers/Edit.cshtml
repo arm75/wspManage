@@ -42,12 +42,12 @@
         <div class="form-group">
             @Html.LabelFor(model => model.SSN, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-2">
-                @Html.EditorFor(model => model.SSN, new { htmlAttributes = new { @class = "form-control", tabindex = "4" } })
+                @Html.EditorFor(model => model.SSN, new { htmlAttributes = new { @class = "form-control ssn-mask", tabindex = "4" } })
                 @Html.ValidationMessageFor(model => model.SSN, "", new { @class = "text-danger" })
             </div>
             @Html.LabelFor(model => model.EIN, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-2">
-                @Html.EditorFor(model => model.EIN, new { htmlAttributes = new { @class = "form-control", tabindex = "5" } })
+                @Html.EditorFor(model => model.EIN, new { htmlAttributes = new { @class = "form-control ein-mask", tabindex = "5" } })
                 @Html.ValidationMessageFor(model => model.EIN, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -66,7 +66,7 @@
             @Html.LabelFor(model => model.Active, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-2">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.Active)
+                    @Html.EditorFor(model => model.Active, new { htmlAttributes = new { @class = "", tabindex = "8" } })
                     @Html.ValidationMessageFor(model => model.Active, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -77,8 +77,8 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.MailingAddress, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-2">
-                @Html.EditorFor(model => model.MailingAddress, new { htmlAttributes = new { @class = "form-control", tabindex = "8" } })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.MailingAddress, new { htmlAttributes = new { @class = "form-control", tabindex = "9" } })
                 @Html.ValidationMessageFor(model => model.MailingAddress, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -86,17 +86,18 @@
         <div class="form-group">
             @Html.LabelFor(model => model.MailingCity, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-2">
-                @Html.EditorFor(model => model.MailingCity, new { htmlAttributes = new { @class = "form-control", tabindex = "9" } })
+                @Html.EditorFor(model => model.MailingCity, new { htmlAttributes = new { @class = "form-control", tabindex = "10" } })
                 @Html.ValidationMessageFor(model => model.MailingCity, "", new { @class = "text-danger" })
             </div>
             @Html.LabelFor(model => model.MailingState, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-2">
-                @Html.EditorFor(model => model.MailingState, new { htmlAttributes = new { @class = "form-control", tabindex = "10" } })
+                @Html.DropDownListFor(model => model.MailingState, ViewBag.statesDropdownList as IEnumerable<SelectListItem>, new { @class = "form-control", tabindex = "11" })
+                @* @Html.EditorFor(model => model.MailingState, new { htmlAttributes = new { @class = "form-control", tabindex = "11" } }) *@
                 @Html.ValidationMessageFor(model => model.MailingState, "", new { @class = "text-danger" })
             </div>
             @Html.LabelFor(model => model.MailingZipcode, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-2">
-                @Html.EditorFor(model => model.MailingZipcode, new { htmlAttributes = new { @class = "form-control", tabindex = "11" } })
+                @Html.EditorFor(model => model.MailingZipcode, new { htmlAttributes = new { @class = "form-control zipcode-mask", tabindex = "12" } })
                 @Html.ValidationMessageFor(model => model.MailingZipcode, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -106,12 +107,12 @@
         <div class="form-group">
             @Html.LabelFor(model => model.HomePhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-2">
-                @Html.EditorFor(model => model.HomePhoneNumber, new { htmlAttributes = new { @class = "form-control", tabindex = "12" } })
+                @Html.EditorFor(model => model.HomePhoneNumber, new { htmlAttributes = new { @class = "form-control phone-mask", tabindex = "13" } })
                 @Html.ValidationMessageFor(model => model.HomePhoneNumber, "", new { @class = "text-danger" })
             </div>
             @Html.LabelFor(model => model.WorkPhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-2">
-                @Html.EditorFor(model => model.WorkPhoneNumber, new { htmlAttributes = new { @class = "form-control", tabindex = "13" } })
+                @Html.EditorFor(model => model.WorkPhoneNumber, new { htmlAttributes = new { @class = "form-control phone-mask", tabindex = "14" } })
                 @Html.ValidationMessageFor(model => model.WorkPhoneNumber, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -119,12 +120,12 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CellPhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-2">
-                @Html.EditorFor(model => model.CellPhoneNumber, new { htmlAttributes = new { @class = "form-control", tabindex = "14" } })
+                @Html.EditorFor(model => model.CellPhoneNumber, new { htmlAttributes = new { @class = "form-control phone-mask", tabindex = "15" } })
                 @Html.ValidationMessageFor(model => model.CellPhoneNumber, "", new { @class = "text-danger" })
             </div>
             @Html.LabelFor(model => model.AlternateNumber, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-2">
-                @Html.EditorFor(model => model.AlternateNumber, new { htmlAttributes = new { @class = "form-control", tabindex = "15" } })
+                @Html.EditorFor(model => model.AlternateNumber, new { htmlAttributes = new { @class = "form-control phone-mask", tabindex = "16" } })
                 @Html.ValidationMessageFor(model => model.AlternateNumber, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -133,8 +134,8 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Notes, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-2">
-                @Html.TextAreaFor(model => model.Notes, new { htmlAttributes = new { @class = "form-control", tabindex = "16" } })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.Notes, new { htmlAttributes = new { @class = "form-control customer-notes", @rows = "10", tabindex = "17" } })
                 @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -160,7 +161,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" tabindex = "17" class="btn btn-default" />
+                <input type="submit" value="Save" tabindex = "18" class="btn btn-default" />
             </div>
         </div>
     </div>
@@ -168,10 +169,10 @@
 
 <hr />
 
-Date Modified: <b>@Html.ValueFor(model => model.DateModified)</b> &nbsp; &nbsp; | &nbsp; &nbsp;
-User Modified: <b>@Html.ValueFor(model => model.UserModified)</b> &nbsp; &nbsp; | &nbsp; &nbsp;
-Date Created: <b>@Html.ValueFor(model => model.DateCreated)</b> &nbsp; &nbsp; | &nbsp; &nbsp;
-User Created: <b>@Html.ValueFor(model => model.UserCreated)</b>
+<p style="text-align: right;">
+Modified on <font color="red">@Html.ValueFor(model => model.DateModified)</font> by <font color="red">@Html.ValueFor(model => model.UserModified)</font> <br />
+Created on <font color="red">@Html.ValueFor(model => model.DateCreated)</font> by <font color="red">@Html.ValueFor(model => model.UserCreated)</font>
+</p>
 
 <hr />
 

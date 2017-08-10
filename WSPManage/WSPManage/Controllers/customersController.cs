@@ -1,13 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
+// using System.Collections.Generic;
+// using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
-using System.Web;
+// using System.Web;
 using System.Web.Mvc;
 using WSPManage.Models;
+// using PagedList;
+using PagedList.EntityFramework;
 
 namespace WSPManage.Controllers
 {
@@ -16,9 +18,55 @@ namespace WSPManage.Controllers
         private WSPManageContext db = new WSPManageContext();
 
         // GET: customers
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            return View(await db.customers.ToListAsync());
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.LastNameSortParm = String.IsNullOrEmpty(sortOrder) ? "lastname_desc" : "";
+            ViewBag.FirstNameSortParm = sortOrder == "firstname" ? "firstname_desc" : "firstname";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            var customers = from s in db.customers
+                           select s;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                customers = customers.Where(s => s.LastName.Contains(searchString)
+                                       || s.FirstName.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "lastname_desc":
+                    customers = customers.OrderByDescending(s => s.LastName);
+                    break;
+                case "firstname":
+                    customers = customers.OrderBy(s => s.FirstName);
+                    break;
+                case "firstname_desc":
+                    customers = customers.OrderByDescending(s => s.FirstName);
+                    break;
+                default:
+                    customers = customers.OrderBy(s => s.LastName);
+                    break;
+            }
+
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(await customers.ToPagedListAsync(pageNumber, pageSize));
+
+            //return View(await customers.ToListAsync());
+
+
         }
 
         // GET: customers/Details/5
@@ -39,6 +87,8 @@ namespace WSPManage.Controllers
         // GET: customers/Create
         public ActionResult Create()
         {
+            ViewBag.statesDropdownList = statesDropdownList.statesList;
+
             return View();
         }
 
@@ -67,7 +117,11 @@ namespace WSPManage.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             customer customer = await db.customers.FindAsync(id);
+
+            ViewBag.statesDropdownList = statesDropdownList.statesList;
+
             if (customer == null)
             {
                 return HttpNotFound();

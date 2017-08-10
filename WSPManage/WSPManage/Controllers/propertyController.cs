@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿// ReSharper disable once RedundantUsingDirective
+// using System;
+// using System.Collections.Generic;
+// using System.Data;
 using System.Data.Entity;
-using System.Linq;
+// using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
-using System.Web;
+// using System.Web;
 using System.Web.Mvc;
 using WSPManage.Models;
 
@@ -39,8 +40,10 @@ namespace WSPManage.Controllers
         // GET: properties/Create
         public ActionResult Create()
         {
-            ViewBag.hello = new SelectList(db.businessEntities, "businessID", "businessName");
-
+            ViewBag.businessEntitiesDropdownList = new SelectList(db.businessEntities, "businessID", "businessName");
+            ViewBag.statesDropdownList = statesDropdownList.statesList;
+            ViewBag.physicalStreetDirDropdownList = physicalStreetDirDropdownList.physicalStreetDirList;
+            
             return View();
         }
 
@@ -49,22 +52,17 @@ namespace WSPManage.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "propertyID,Active,PhysicalAddress,PhysicalUnit,PhysicalCity,PhysicalState,PhysicalZipcode,PhysicalCounty,OriginalCost,AcquireDate,MarketValue,RentalUnit,PropertySource,LegallyAvailable,PhysicallyAvailable,WSPOwned,InsuranceRequired,InsuranceCarrier,InsurancePolicy,InsurancePolicyExpiration,WSPLiabilityDateAdded,Lender,LoanNumber,WSPBalanceOwed,TaxIDNumber,LastYearPaid,DateCreated,UserCreated,DateModified,UserModified")] property property)
+        public async Task<ActionResult> Create([Bind(Include = "propertyID,Active,PhysicalStreetNumber,PhysicalStreetDir,PhysicalStreetName,PhysicalAddress,PhysicalUnit,PhysicalCity,PhysicalState,PhysicalZipcode,PhysicalCounty,OriginalCost,AcquireDate,MarketValue,RentalUnit,PropertySource,LegallyAvailable,PhysicallyAvailable,WSPOwned,InsuranceRequired,InsuranceCarrier,InsurancePolicy,InsurancePolicyExpiration,WSPLiabilityDateAdded,Lender,LoanNumber,WSPBalanceOwed,TaxIDNumber,LastYearPaid,DateCreated,UserCreated,DateModified,UserModified")] property property)
         {
-            // var currentUsername = !string.IsNullOrEmpty(System.Web.HttpContext.Current?.User?.Identity?.Name)
-            //    ? HttpContext.User.Identity.Name
-            //    : "Anonymous";
-
             if (ModelState.IsValid)
             {
-             //   property.DateCreated = DateTime.Now;
-             //   property.UserCreated = currentUsername;
-
+                property.Active = true;
+                property.PhysicalAddress = property.PhysicalStreetNumber + " " + property.PhysicalStreetDir + " " + property.PhysicalStreetName + " Unit:" + property.PhysicalUnit;
                 db.properties.Add(property);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-
+                       
             return View(property);
         }
 
@@ -75,10 +73,17 @@ namespace WSPManage.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            property property = await db.properties.FindAsync(id);
 
-            property.businessentitySelectList = new SelectList(db.businessEntities, "businessID", "businessName");
-            
+            property property = await db.properties.FindAsync(id);
+                        
+            ViewBag.businessEntitiesDropdownList = new SelectList(db.businessEntities, "businessID", "businessName");
+            ViewBag.statesDropdownList = statesDropdownList.statesList;
+            ViewBag.physicalStreetDirDropdownList = physicalStreetDirDropdownList.physicalStreetDirList;
+
+
+            // The FIRST way I built the select list, by creating a new instance of a model property.
+            //property.businessentitySelectList = new SelectList(db.businessEntities, "businessID", "businessName");
+
             if (property == null)
             {
                 return HttpNotFound();
@@ -91,21 +96,16 @@ namespace WSPManage.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "propertyID,Active,PhysicalAddress,PhysicalUnit,PhysicalCity,PhysicalState,PhysicalZipcode,PhysicalCounty,OriginalCost,AcquireDate,MarketValue,RentalUnit,PropertySource,LegallyAvailable,PhysicallyAvailable,WSPOwned,InsuranceRequired,InsuranceCarrier,InsurancePolicy,InsurancePolicyExpiration,WSPLiabilityDateAdded,Lender,LoanNumber,WSPBalanceOwed,TaxIDNumber,LastYearPaid,DateCreated,UserCreated,DateModified,UserModified")] property property)
+        public async Task<ActionResult> Edit([Bind(Include = "propertyID,Active,PhysicalStreetNumber,PhysicalStreetDir,PhysicalStreetName,PhysicalAddress,PhysicalUnit,PhysicalCity,PhysicalState,PhysicalZipcode,PhysicalCounty,OriginalCost,AcquireDate,MarketValue,RentalUnit,PropertySource,LegallyAvailable,PhysicallyAvailable,WSPOwned,InsuranceRequired,InsuranceCarrier,InsurancePolicy,InsurancePolicyExpiration,WSPLiabilityDateAdded,Lender,LoanNumber,WSPBalanceOwed,TaxIDNumber,LastYearPaid,DateCreated,UserCreated,DateModified,UserModified")] property property)
         {
-            //var currentUsername = !string.IsNullOrEmpty(System.Web.HttpContext.Current?.User?.Identity?.Name)
-            //    ? HttpContext.User.Identity.Name
-            //    : "Anonymous";
-
             if (ModelState.IsValid)
             {
-             //   property.DateModified = DateTime.Now;
-             //   property.UserModified = currentUsername;
-
+                property.PhysicalAddress = property.PhysicalStreetNumber + " " + property.PhysicalStreetDir + " " + property.PhysicalStreetName + " Unit:" + property.PhysicalUnit;
                 db.Entry(property).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+
             return View(property);
         }
 
