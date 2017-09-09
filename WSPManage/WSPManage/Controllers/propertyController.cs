@@ -1,14 +1,16 @@
-﻿// ReSharper disable once RedundantUsingDirective
-// using System;
+﻿using System;
 // using System.Collections.Generic;
 // using System.Data;
 using System.Data.Entity;
-// using System.Linq;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
 // using System.Web;
 using System.Web.Mvc;
+// using System.Web.UI.WebControls.Expressions;
 using WSPManage.Models;
+// using PagedList;
+using PagedList.EntityFramework;
 
 namespace WSPManage.Controllers
 {
@@ -16,11 +18,90 @@ namespace WSPManage.Controllers
     {
         private WSPManageContext db = new WSPManageContext();
 
-        // GET: properties
-        public async Task<ActionResult> Index()
+        // GET: customers - INDEX ACTION
+        public async Task<ActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            return View(await db.properties.ToListAsync());
+            // pull in the values for sort ordering and sort parameter (sort by what? and in what order?)
+            // pulls values from the query string
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.PhysicalAddressSortParm = String.IsNullOrEmpty(sortOrder) ? "physicaladdress_desc" : "";
+            ViewBag.PhysicalCitySortParm = sortOrder == "physicalcity" ? "physicalcity_desc" : "physicalcity";
+            ViewBag.PhysicalStateSortParm = sortOrder == "physicalstate" ? "physicalstate_desc" : "physicalstate";
+            ViewBag.PhysicalZipcodeSortParm = sortOrder == "physicalzipcode" ? "physicalzipcode_desc" : "physicalzipcode";
+
+            // pull in the value of searchString from 
+            // the search box string. gets values from the form.
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            // pass the search string to the view so the box can re-populate
+            ViewBag.CurrentFilter = searchString;
+
+            // go ahead and create the data set
+            var properties = from s in db.properties
+                select s;
+
+            // remove all data from the data set,
+            // that does not contain the searchString
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                properties = properties.Where(s => s.PhysicalAddress.Contains(searchString)
+                                                 || s.PhysicalCity.Contains(searchString) 
+                                                 || s.PhysicalState.Contains(searchString)
+                                                   || s.PhysicalZipcode.Contains(searchString));
+            }
+
+            // re-order the data set to the sortOrder
+            // and sort parameter specifications.
+            // the DEFAULT case, at the bottom, is order by LastName, ascending.
+            switch (sortOrder)
+            {
+                case "physicaladdress_desc":
+                    properties = properties.OrderByDescending(s => s.PhysicalAddress);
+                    break;
+                case "physicalcity":
+                    properties = properties.OrderBy(s => s.PhysicalCity);
+                    break;
+                case "physicalcity_desc":
+                    properties = properties.OrderByDescending(s => s.PhysicalCity);
+                    break;
+                case "physicalstate":
+                    properties = properties.OrderBy(s => s.PhysicalState);
+                    break;
+                case "physicalstate_desc":
+                    properties = properties.OrderByDescending(s => s.PhysicalState);
+                    break;
+                case "physicalzipcode":
+                    properties = properties.OrderBy(s => s.PhysicalZipcode);
+                    break;
+                case "physicalzipcode_desc":
+                    properties = properties.OrderByDescending(s => s.PhysicalZipcode);
+                    break;
+                default:
+                    properties = properties.OrderBy(s => s.PhysicalAddress);
+                    break;
+            }
+
+            // null-coalescing operator. It returns the left-hand operand
+            // if the operand is not null; otherwise it returns the
+            // right hand operand. SO, if page HAS a value, give it to pageNumber,
+            // if page DOESN'T have a value, set pageNumber to 1.
+            int pageSize = 30;
+            int pageNumber = (page ?? 1);
+
+            // and finally, give the data set to the view.
+            return View(await properties.ToPagedListAsync(pageNumber, pageSize));
+
+            // ORIGINAL return to the view
+            //return View(await properties.ToListAsync());
         }
+
 
         // GET: properties/Details/5
         public async Task<ActionResult> Details(int? id)
@@ -79,8 +160,7 @@ namespace WSPManage.Controllers
             ViewBag.businessEntitiesDropdownList = new SelectList(db.businessEntities, "businessID", "businessName");
             ViewBag.statesDropdownList = statesDropdownList.statesList;
             ViewBag.physicalStreetDirDropdownList = physicalStreetDirDropdownList.physicalStreetDirList;
-
-
+            
             // The FIRST way I built the select list, by creating a new instance of a model property.
             //property.businessentitySelectList = new SelectList(db.businessEntities, "businessID", "businessName");
 

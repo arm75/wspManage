@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Rentals</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -13,46 +13,36 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.Active)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.rentalID)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.customerID)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.propertyID)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateCreated)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserCreated)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateModified)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserModified)
-        </th>
+
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.customerID)
+            @Html.DisplayFor(modelItem => item.Active)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.propertyID)
+            @Html.DisplayFor(modelItem => item.rentalID)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DateCreated)
+            @Html.DisplayFor(modelItem => item.customerIDName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.UserCreated)
+            @Html.DisplayFor(modelItem => item.propertyIDName)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateModified)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserModified)
-        </td>
+        
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.rentalID }) |
             @Html.ActionLink("Details", "Details", new { id=item.rentalID }) |

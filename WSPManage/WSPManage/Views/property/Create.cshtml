@@ -7,6 +7,10 @@
 
 <h2>Create New Property</h2>
 
+<div>
+    @Html.ActionLink("Back to Properties", "Index")
+</div>
+
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
@@ -202,7 +206,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to Properties", "Index")
 </div>
 
 @section Scripts {

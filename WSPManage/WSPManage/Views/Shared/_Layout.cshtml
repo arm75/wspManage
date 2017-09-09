@@ -8,18 +8,22 @@
     @Scripts.Render("~/Scripts/jquery-1.12.4.min.js")
     @Scripts.Render("~/Scripts/jquery-ui-1.12.1.min.js")
     @Scripts.Render("~/Scripts/jquery.maskedinput.min.js")
+    @Scripts.Render("~/Scripts/jquery.maskMoney.js")
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/themes/base/jquery-ui.min.css")
     
     <script type="text/javascript">
     $(function () {
         // This will make every element with the class "date-picker" into a DatePicker element
-        $('.date-picker').datepicker();
+        $('.date-picker').datepicker( //{
+            // dateFormat: 'yyyy-mm-dd'
+    //    }
+    );
         $(".phone-mask").mask("(999)999-9999");
         $(".ssn-mask").mask("999-99-9999");
         $(".ein-mask").mask("99-9999999");
         $(".zipcode-mask").mask("99999");
-
+        $('.currency-mask').maskMoney({ allowNegative: false, thousands: '', decimal: '.', selectAllOnFocus: true, affixesStay: false });
     })
     </script>
 </head>

@@ -39,6 +39,12 @@ namespace WSPManage.Controllers
         // GET: loanPayments/Create
         public ActionResult Create()
         {
+            List<loan> validLoansList = db.loans.Where(p => p.Active).OrderBy(p => p.loanID).ToList();
+            
+            ViewBag.loanIDSelectList = new SelectList(validLoansList, "loanID", "loanID").OrderBy(p => p.Text);
+
+            ViewBag.loanPaymentTypeDropdownList = loanPaymentTypeDropdownList.loanPaymentTypeList;
+
             return View();
         }
 
@@ -47,7 +53,7 @@ namespace WSPManage.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "loanPaymentID,customerID,propertyID,loanID,DateCreated,UserCreated,DateModified,UserModified")] loanPayment loanPayment)
+        public async Task<ActionResult> Create([Bind(Include = "loanPaymentID,customerID,propertyID,loanID,PaymentType,Payor,PaymentAmount,PaymentDate,PostedDate,DepositDate,PaymentMethod,CheckNumber,PaymentDescription,PaymentNotes,DateCreated,UserCreated,DateModified,UserModified")] loanPayment loanPayment)
         {
             if (ModelState.IsValid)
             {
@@ -79,7 +85,7 @@ namespace WSPManage.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "loanPaymentID,customerID,propertyID,loanID,DateCreated,UserCreated,DateModified,UserModified")] loanPayment loanPayment)
+        public async Task<ActionResult> Edit([Bind(Include = "loanPaymentID,customerID,propertyID,loanID,PaymentType,Payor,PaymentAmount,PaymentDate,PostedDate,DepositDate,PaymentMethod,CheckNumber,PaymentDescription,PaymentNotes,DateCreated,UserCreated,DateModified,UserModified")] loanPayment loanPayment)
         {
             if (ModelState.IsValid)
             {

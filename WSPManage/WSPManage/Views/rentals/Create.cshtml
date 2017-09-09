@@ -5,75 +5,142 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
+<h2>Create New Rental</h2>
 
+<div>
+    @Html.ActionLink("Back to Rentals", "Index")
+</div>
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>rental</h4>
-        <hr />
+        
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <p class="custom-form-section-header">Primary Rental Information</p>
+
         <div class="form-group">
-            @Html.LabelFor(model => model.customerID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.customerID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.customerID, "", new { @class = "text-danger" })
+            @Html.LabelFor(model => model.customerID, htmlAttributes: new {@class = "control-label col-md-2"})
+            <div class="col-md-4">
+                @Html.DropDownListFor(model => model.customerID, ViewBag.customerIDSelectList as IEnumerable<SelectListItem>, new {@class = "form-control"})
+                @Html.ValidationMessageFor(model => model.customerID, "", new {@class = "text-danger"})
+            </div>
+            @Html.LabelFor(model => model.propertyID, htmlAttributes: new {@class = "control-label col-md-2"})
+            <div class="col-md-4">
+                @Html.DropDownListFor(model => model.propertyID, ViewBag.propertyIDSelectList as IEnumerable<SelectListItem>, new {@class = "form-control"})
+                @Html.ValidationMessageFor(model => model.propertyID, "", new {@class = "text-danger"})
             </div>
         </div>
 
+        <p class="custom-form-section-header">Other Rental Information</p>
+
         <div class="form-group">
-            @Html.LabelFor(model => model.propertyID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.propertyID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.propertyID, "", new { @class = "text-danger" })
+            @Html.LabelFor(model => model.RentalStartDate, htmlAttributes: new {@class = "control-label col-md-2"})
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.RentalStartDate, new {htmlAttributes = new {@class = "form-control date-picker"}})
+                @Html.ValidationMessageFor(model => model.RentalStartDate, "", new {@class = "text-danger"})
+            </div>
+            @Html.LabelFor(model => model.RentalEndDate, htmlAttributes: new {@class = "control-label col-md-2"})
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.RentalEndDate, new {htmlAttributes = new {@class = "form-control date-picker"}})
+                @Html.ValidationMessageFor(model => model.RentalEndDate, "", new {@class = "text-danger"})
+            </div>
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.RentalNotes, htmlAttributes: new {@class = "control-label col-md-2"})
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.RentalNotes, new {htmlAttributes = new {@class = "form-control customer-notes", @rows = "10", tabindex = "20"}})
+                @Html.ValidationMessageFor(model => model.RentalNotes, "", new {@class = "text-danger"})
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.DateCreated, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DateCreated, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DateCreated, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        <p class="custom-form-section-header">Other Rental Information</p>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.UserCreated, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.UserCreated, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.UserCreated, "", new { @class = "text-danger" })
+            @Html.LabelFor(model => model.MonthlyRentAmount, htmlAttributes: new {@class = "control-label col-md-2"})
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.MonthlyRentAmount, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.ValidationMessageFor(model => model.MonthlyRentAmount, "", new {@class = "text-danger"})
+            </div>
+            @Html.LabelFor(model => model.LatePaymentAmount, htmlAttributes: new {@class = "control-label col-md-2"})
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.LatePaymentAmount, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.ValidationMessageFor(model => model.LatePaymentAmount, "", new {@class = "text-danger"})
             </div>
         </div>
+        
+        <p class="custom-form-section-header">Other Rental Information</p>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.DateModified, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DateModified, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DateModified, "", new { @class = "text-danger" })
+            @Html.LabelFor(model => model.Judgement, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-2">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Judgement)
+                    @Html.ValidationMessageFor(model => model.Judgement, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
-
+        
         <div class="form-group">
-            @Html.LabelFor(model => model.UserModified, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.UserModified, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.UserModified, "", new { @class = "text-danger" })
+            @Html.LabelFor(model => model.CourtDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.CourtDate, new { htmlAttributes = new { @class = "form-control date-picker" } })
+                @Html.ValidationMessageFor(model => model.CourtDate, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.EvictionDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.EvictionDate, new { htmlAttributes = new { @class = "form-control date-picker" } })
+                @Html.ValidationMessageFor(model => model.EvictionDate, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.RandPSentDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.RandPSentDate, new { htmlAttributes = new { @class = "form-control date-picker" } })
+                @Html.ValidationMessageFor(model => model.RandPSentDate, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.WritSentDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.WritSentDate, new { htmlAttributes = new { @class = "form-control date-picker" } })
+                @Html.ValidationMessageFor(model => model.WritSentDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.AgreeToVacateDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.AgreeToVacateDate, new { htmlAttributes = new { @class = "form-control date-picker" } })
+                @Html.ValidationMessageFor(model => model.AgreeToVacateDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.CourtCosts, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.CourtCosts, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CourtCosts, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.LegalFees, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.LegalFees, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LegalFees, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-default"/>
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to Rentals", "Index")
 </div>
 
 @section Scripts {

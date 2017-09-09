@@ -172,6 +172,8 @@
     <Compile Include="Models\customer.cs" />
     <Compile Include="Models\loan.cs" />
     <Compile Include="Models\loanPayment.cs" />
+    <Compile Include="Models\loanPaymentTypeDropdownList.cs" />
+    <Compile Include="Models\pageSizeDropdownList.cs" />
     <Compile Include="Models\physicalStreetDirDropdownList.cs" />
     <Compile Include="Models\property.cs" />
     <Compile Include="Models\rental.cs" />
@@ -188,7 +190,9 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <None Include="Content\site\images\bg-pinstripe.png" />
+    <None Include="Content\site\images\bg-pinstripe.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
@@ -238,6 +242,7 @@
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Resources\bg-pinstripe.png" />
     <None Include="Resources\jquery.maskedinput.min.js" />
+    <Content Include="Resources\jquery.maskMoney.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -251,6 +256,7 @@
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
     <Content Include="Scripts\jquery.maskedinput.min.js" />
+    <Content Include="Scripts\jquery.maskMoney.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -258,7 +264,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -282,11 +290,6 @@
     <Content Include="Views\property\Details.cshtml" />
     <Content Include="Views\property\Edit.cshtml" />
     <Content Include="Views\property\Index.cshtml" />
-    <Content Include="Views\loanPayments\Create.cshtml" />
-    <Content Include="Views\loanPayments\Delete.cshtml" />
-    <Content Include="Views\loanPayments\Details.cshtml" />
-    <Content Include="Views\loanPayments\Edit.cshtml" />
-    <Content Include="Views\loanPayments\Index.cshtml" />
     <Content Include="Views\rentals\Create.cshtml" />
     <Content Include="Views\rentals\Delete.cshtml" />
     <Content Include="Views\rentals\Details.cshtml" />
@@ -302,6 +305,11 @@
     <Content Include="Views\loans\Details.cshtml" />
     <Content Include="Views\loans\Edit.cshtml" />
     <Content Include="Views\loans\Index.cshtml" />
+    <Content Include="Views\loanPayments\Create.cshtml" />
+    <Content Include="Views\loanPayments\Delete.cshtml" />
+    <Content Include="Views\loanPayments\Details.cshtml" />
+    <Content Include="Views\loanPayments\Edit.cshtml" />
+    <Content Include="Views\loanPayments\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -7,6 +7,10 @@
 
 <h2>Create New Customer</h2>
 
+<div>
+    @Html.ActionLink("Back to Customers", "Index")
+</div>
+
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
@@ -81,7 +85,6 @@
             @Html.LabelFor(model => model.MailingState, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-2">
                 @Html.DropDownListFor(model => model.MailingState, ViewBag.statesDropdownList as IEnumerable<SelectListItem>, new { @class = "form-control", tabindex = "10" })
-                @* @Html.EditorFor(model => model.MailingState, new { htmlAttributes = new { @class = "form-control", tabindex = "10" } }) *@
                 @Html.ValidationMessageFor(model => model.MailingState, "", new { @class = "text-danger" })
             </div>
             @Html.LabelFor(model => model.MailingZipcode, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -140,7 +143,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to Customers", "Index")
 </div>
 
 @section Scripts {

@@ -14,7 +14,7 @@
 .body-content-inner {
     background-color: #ddd3a3;
     padding: 20px;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 .custom-form-section-header {

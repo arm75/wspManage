@@ -1,23 +1,24 @@
 ﻿@model WSPManage.Models.customer
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit Customer";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit customer <b>@Html.ValueFor(model => model.FirstName) @Html.ValueFor(model => model.MiddleName) @Html.ValueFor(model => model.LastName)</b>(#@Html.ValueFor(model => model.customerID))</h2>
+<h2>Edit Customer @Html.ValueFor(model => model.FirstName) @Html.ValueFor(model => model.MiddleName) @Html.ValueFor(model => model.LastName) (#@Html.ValueFor(model => model.customerID))</h2>
 
+<div>
+    @Html.ActionLink("Back to Customers", "Index")
+</div>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <!-- <h4>customer</h4> -->
         
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.customerID)
-
         
         <p class="custom-form-section-header">Identity Information</p>
 
@@ -135,7 +136,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Notes, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-8">
-                @Html.EditorFor(model => model.Notes, new { htmlAttributes = new { @class = "form-control customer-notes", @rows = "10", tabindex = "17" } })
+                @Html.EditorFor(model => model.Notes, new { htmlAttributes = new { @class = "form-control customer-notes", @rows = "10", tabindex = "20" } })
                 @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -170,14 +171,14 @@
 <hr />
 
 <p style="text-align: right;">
-Modified on <font color="red">@Html.ValueFor(model => model.DateModified)</font> by <font color="red">@Html.ValueFor(model => model.UserModified)</font> <br />
-Created on <font color="red">@Html.ValueFor(model => model.DateCreated)</font> by <font color="red">@Html.ValueFor(model => model.UserCreated)</font>
+    Modified on <font color="red">@Html.ValueFor(model => model.DateModified)</font> by <font color="red">@Html.ValueFor(model => model.UserModified)</font> <br />
+    Created on <font color="red">@Html.ValueFor(model => model.DateCreated)</font> by <font color="red">@Html.ValueFor(model => model.UserCreated)</font>
 </p>
 
 <hr />
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to Customers", "Index")
 </div>
 
 @section Scripts {

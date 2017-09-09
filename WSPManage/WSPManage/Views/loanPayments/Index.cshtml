@@ -13,25 +13,28 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.customerID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.propertyID)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.loanID)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DateCreated)
+            @Html.DisplayNameFor(model => model.PaymentType)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UserCreated)
+            @Html.DisplayNameFor(model => model.PaymentAmount)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DateModified)
+            @Html.DisplayNameFor(model => model.PaymentDate)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UserModified)
+            @Html.DisplayNameFor(model => model.PostedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DepositDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PaymentMethod)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CheckNumber)
         </th>
         <th></th>
     </tr>
@@ -39,25 +42,28 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.customerID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.propertyID)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.loanID)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DateCreated)
+            @Html.DisplayFor(modelItem => item.PaymentType)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.UserCreated)
+            @Html.DisplayFor(modelItem => item.PaymentAmount)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DateModified)
+            @Html.DisplayFor(modelItem => item.PaymentDate)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.UserModified)
+            @Html.DisplayFor(modelItem => item.PostedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DepositDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PaymentMethod)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CheckNumber)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.loanPaymentID }) |

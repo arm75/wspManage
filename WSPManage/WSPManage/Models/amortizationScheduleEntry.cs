@@ -12,6 +12,6 @@ namespace WSPManage.Models
         public decimal PaymentAmount { get; set; }
         public decimal Principal { get; set; }
         public decimal Interest { get; set; }
-        public decimal PrincipalBalance { get; set; }
+        public decimal? PrincipalBalance { get; set; }
     }
 }

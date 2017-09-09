@@ -22,6 +22,13 @@ namespace WSPManage.Models
         public string MiddleName { get; set; }
         [Required, DisplayName("Last Name")]
         public string LastName { get; set; }
+
+        public string FullName { get; set; }
+        public string FullNameLastFirst { get; set; }
+
+        [DisplayName("Business Name")]
+        public string BusinessName { get; set; }
+        
         public string SSN { get; set; }
         public string EIN { get; set; }
         [DisplayName("Contract Name")]

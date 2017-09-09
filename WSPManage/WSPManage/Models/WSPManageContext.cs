@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -28,9 +29,12 @@ namespace WSPManage.Models
         public System.Data.Entity.DbSet<WSPManage.Models.loanPayment> loanPayments { get; set; }
         public System.Data.Entity.DbSet<WSPManage.Models.rentalPayment> rentalPayments { get; set; }
 
-
-
-
+        
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Conventions.Remove<DecimalPropertyConvention>();
+            modelBuilder.Conventions.Add(new DecimalPropertyConvention(18, 10));
+        }
 
         public override int SaveChanges()
         {

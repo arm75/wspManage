@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Loans</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -16,58 +16,13 @@
             @Html.DisplayNameFor(model => model.Active)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LoanOnly)
+            @Html.DisplayNameFor(model => model.loanID)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.customerID)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.propertyID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SalePrice)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DownPayment)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ContractDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ClosingDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LoanAmount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.InterestRate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Period)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Payment)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstPaymentDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ValueToCalc)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LoanNotes)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateCreated)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserCreated)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateModified)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserModified)
         </th>
         <th></th>
     </tr>
@@ -78,58 +33,13 @@
             @Html.DisplayFor(modelItem => item.Active)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.LoanOnly)
+            @Html.DisplayFor(modelItem => item.loanID)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.customerID)
+            @Html.DisplayFor(modelItem => item.customerIDName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.propertyID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SalePrice)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DownPayment)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ContractDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ClosingDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LoanAmount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.InterestRate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Period)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Payment)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstPaymentDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ValueToCalc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LoanNotes)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateCreated)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserCreated)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateModified)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserModified)
+            @Html.DisplayFor(modelItem => item.propertyIDName)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.loanID }) |

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Net;
 // using System.Web;
 using System.Web.Mvc;
+// using System.Web.UI.WebControls.Expressions;
 using WSPManage.Models;
 // using PagedList;
 using PagedList.EntityFramework;
@@ -17,33 +18,41 @@ namespace WSPManage.Controllers
     {
         private WSPManageContext db = new WSPManageContext();
 
-        // GET: customers
+        // GET: customers - INDEX ACTION
         public async Task<ActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            // pull in the values for sort ordering and sort parameter (sort by what? and in what order?)
+            // pulls values from the query string
             ViewBag.CurrentSort = sortOrder;
             ViewBag.LastNameSortParm = String.IsNullOrEmpty(sortOrder) ? "lastname_desc" : "";
             ViewBag.FirstNameSortParm = sortOrder == "firstname" ? "firstname_desc" : "firstname";
 
+            // pull in the value of searchString from 
+            // the search box string. gets values from the form.
             if (searchString != null)
-            {
-                page = 1;
-            }
-            else
-            {
-                searchString = currentFilter;
+            {  page = 1;
+            } else
+            {  searchString = currentFilter;
             }
 
+            // pass the search string to the view so the box can re-populate
             ViewBag.CurrentFilter = searchString;
-
+            
+            // go ahead and create the data set
             var customers = from s in db.customers
                            select s;
 
+            // remove all data from the data set,
+            // that does not contain the searchString
             if (!String.IsNullOrEmpty(searchString))
             {
                 customers = customers.Where(s => s.LastName.Contains(searchString)
                                        || s.FirstName.Contains(searchString));
             }
 
+            // re-order the data set to the sortOrder
+            // and sort parameter specifications.
+            // the DEFAULT case, at the bottom, is order by LastName, ascending.
             switch (sortOrder)
             {
                 case "lastname_desc":
@@ -59,14 +68,19 @@ namespace WSPManage.Controllers
                     customers = customers.OrderBy(s => s.LastName);
                     break;
             }
-
-            int pageSize = 5;
+            
+            // null-coalescing operator. It returns the left-hand operand
+            // if the operand is not null; otherwise it returns the
+            // right hand operand. SO, if page HAS a value, give it to pageNumber,
+            // if page DOESN'T have a value, set pageNumber to 1.
+            int pageSize = 30;
             int pageNumber = (page ?? 1);
+            
+            // and finally, give the data set to the view.
             return View(await customers.ToPagedListAsync(pageNumber, pageSize));
 
+            // ORIGINAL return to the view
             //return View(await customers.ToListAsync());
-
-
         }
 
         // GET: customers/Details/5
@@ -97,11 +111,14 @@ namespace WSPManage.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "customerID,Active,FirstName,MiddleName,LastName,SSN,EIN,ContractName,AlternateName,MailingAddress,MailingCity,MailingState,MailingZipcode,HomePhoneNumber,WorkPhoneNumber,CellPhoneNumber,AlternateNumber,Notes,DateCreated,UserCreated,DateModified,UserModified")] customer customer)
+        public async Task<ActionResult> Create([Bind(Include = "customerID,Active,FirstName,MiddleName,LastName,FullName,FullNameLastFirst,BusinessName,SSN,EIN,ContractName,AlternateName,MailingAddress,MailingCity,MailingState,MailingZipcode,HomePhoneNumber,WorkPhoneNumber,CellPhoneNumber,AlternateNumber,Notes,DateCreated,UserCreated,DateModified,UserModified")] customer customer)
         {
             if (ModelState.IsValid)
             {
                 customer.Active = true;
+                customer.FullName = customer.FirstName + " " + customer.MiddleName + " " + customer.LastName;
+                customer.FullNameLastFirst = customer.LastName + ", " + customer.FirstName + " " + customer.MiddleName;
+
                 db.customers.Add(customer);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -134,10 +151,13 @@ namespace WSPManage.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "customerID,Active,FirstName,MiddleName,LastName,SSN,EIN,ContractName,AlternateName,MailingAddress,MailingCity,MailingState,MailingZipcode,HomePhoneNumber,WorkPhoneNumber,CellPhoneNumber,AlternateNumber,Notes,DateCreated,UserCreated,DateModified,UserModified")] customer customer)
+        public async Task<ActionResult> Edit([Bind(Include = "customerID,Active,FirstName,MiddleName,LastName,FullName,FullNameLastFirst,BusinessName,SSN,EIN,ContractName,AlternateName,MailingAddress,MailingCity,MailingState,MailingZipcode,HomePhoneNumber,WorkPhoneNumber,CellPhoneNumber,AlternateNumber,Notes,DateCreated,UserCreated,DateModified,UserModified")] customer customer)
         {
             if (ModelState.IsValid)
             {
+                customer.FullName = customer.FirstName + " " + customer.MiddleName + " " + customer.LastName;
+                customer.FullNameLastFirst = customer.LastName + ", " + customer.FirstName + " " + customer.MiddleName;
+
                 db.Entry(customer).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");

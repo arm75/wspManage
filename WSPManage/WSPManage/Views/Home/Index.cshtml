@@ -3,13 +3,21 @@
 }
 
 <div class="jumbotron">
-    <h1>Dashboard</h1>
+    <h1>Welcome to WSPManage!</h1>
+    <h2>Dashboard</h2>
     <p class="lead">This will be a dashboard to display some stuff.</p>
-    <p>@Html.ActionLink("Customers", "Index", "customers", null, new { @class = "btn btn-primary btn-lg" })</p>
-    <p><a href="/customers" class="btn btn-primary btn-lg">Customers &raquo;</a></p>
-    <p><a href="/property" class="btn btn-primary btn-lg">Properties &raquo;</a></p>
-    <p><a href="/loans" class="btn btn-primary btn-lg">Loans &raquo;</a></p>
-
+    <br/>
+    <div class="btn-group btn-group-justified">
+        @Html.ActionLink("Loan Payments", "Index", "loanPayments", null, new {@class = "btn btn-danger btn-lg"})
+        @Html.ActionLink("Rental Payments", "Index", "rentalPayments", null, new {@class = "btn btn-danger btn-lg"})
+    </div>
+    <br/>
+    <div class="btn-group btn-group-justified">
+        @Html.ActionLink("Customers", "Index", "customers", null, new {@class = "btn btn-primary btn-lg"})
+        @Html.ActionLink("Properties", "Index", "property", null, new {@class = "btn btn-primary btn-lg"})
+        @Html.ActionLink("Loans", "Index", "loans", null, new {@class = "btn btn-primary btn-lg"})
+        @Html.ActionLink("Rentals", "Index", "rentals", null, new {@class = "btn btn-primary btn-lg"})
+    </div>
 </div>
 
 <!--

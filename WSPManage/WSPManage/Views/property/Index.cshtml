@@ -1,4 +1,6 @@
-﻿@model IEnumerable<WSPManage.Models.property>
+﻿@model PagedList.IPagedList<WSPManage.Models.property>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "Properties";
@@ -10,196 +12,63 @@
 <p>
     @Html.ActionLink("Create New Property", "Create")
 </p>
+
+@using (Html.BeginForm("Index", "property", FormMethod.Get))
+{
+    <p>
+        Search: @Html.TextBox("searchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Active)
+            Active
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PhysicalAddress)
+            @Html.ActionLink("Address", "Index", new { sortOrder = ViewBag.PhysicalAddressSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PhysicalUnit)
+            @Html.ActionLink("City", "Index", new { sortOrder = ViewBag.PhysicalCitySortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PhysicalCity)
+            @Html.ActionLink("State", "Index", new { sortOrder = ViewBag.PhysicalStateSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PhysicalState)
+            @Html.ActionLink("Zipcode", "Index", new { sortOrder = ViewBag.PhysicalZipcodeSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PhysicalZipcode)
-        </th>
-        <!--
-        <th>
-            @Html.DisplayNameFor(model => model.PhysicalCounty)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.OriginalCost)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AcquireDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MarketValue)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RentalUnit)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PropertySource)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LegallyAvailable)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PhysicallyAvailable)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.WSPOwned)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.InsuranceRequired)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.InsuranceCarrier)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.InsurancePolicy)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.InsurancePolicyExpiration)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.WSPLiabilityDateAdded)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Lender)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LoanNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.WSPBalanceOwed)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TaxIDNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastYearPaid)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateCreated)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserCreated)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateModified)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserModified)
-        </th> -->
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Active)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PhysicalAddress)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PhysicalUnit)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PhysicalCity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PhysicalState)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PhysicalZipcode)
-        </td>
-        <!--
-        <td>
-            @Html.DisplayFor(modelItem => item.PhysicalCounty)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OriginalCost)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AcquireDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MarketValue)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RentalUnit)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PropertySource)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LegallyAvailable)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PhysicallyAvailable)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.WSPOwned)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.InsuranceRequired)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.InsuranceCarrier)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.InsurancePolicy)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.InsurancePolicyExpiration)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.WSPLiabilityDateAdded)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Lender)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LoanNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.WSPBalanceOwed)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TaxIDNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastYearPaid)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateCreated)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserCreated)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateModified)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserModified)
-        </td>
-        -->
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.propertyID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.propertyID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.propertyID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Active)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhysicalAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhysicalCity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhysicalState)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhysicalZipcode)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.propertyID }) |
+                @Html.ActionLink("Details", "Details", new { id=item.propertyID }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.propertyID })
+            </td>
+        </tr>
+    }
 
 </table>
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

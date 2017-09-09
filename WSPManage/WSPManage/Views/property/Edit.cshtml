@@ -5,8 +5,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit property <b>#@Html.ValueFor(model => model.propertyID)</b></h2>
+<h2>Edit property #@Html.ValueFor(model => model.propertyID)</h2>
 
+<div>
+    @Html.ActionLink("Back to Properties", "Index")
+</div>
 
 @using (Html.BeginForm())
 {
@@ -238,7 +241,7 @@ Created on <font color="red">@Html.ValueFor(model => model.DateCreated)</font> b
 <hr />
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to Properties", "Index")
 </div>
 
 @section Scripts {

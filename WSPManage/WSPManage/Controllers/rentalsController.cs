@@ -18,7 +18,24 @@ namespace WSPManage.Controllers
         // GET: rentals
         public async Task<ActionResult> Index()
         {
-            return View(await db.rentals.ToListAsync());
+            // original code
+            // return View(await db.rentals.ToListAsync());
+
+            List<rental> rentalsList = await db.rentals.OrderBy(p => p.rentalID).ToListAsync();
+
+            // set the Property NAME using the ID stored in the loan, for THIS instance of the list. it is NOT STORED.
+            foreach (var listEntry in rentalsList)
+            {
+                property thisProperty = db.properties.Find(listEntry.propertyID);
+                customer thisCustomer = db.customers.Find(listEntry.customerID);
+
+                listEntry.propertyIDName = thisProperty != null ? thisProperty.PhysicalAddress : listEntry.propertyID.ToString();
+                listEntry.customerIDName = thisCustomer != null ? thisCustomer.FullName : listEntry.customerID.ToString();
+
+            }
+
+            return View(rentalsList);
+
         }
 
         // GET: rentals/Details/5
@@ -39,6 +56,9 @@ namespace WSPManage.Controllers
         // GET: rentals/Create
         public ActionResult Create()
         {
+            ViewBag.propertyIDSelectList = new SelectList(db.properties, "propertyID", "PhysicalAddress").OrderBy(p => p.Text);
+            ViewBag.customerIDSelectList = new SelectList(db.customers, "customerID", "FullNameLastFirst").OrderBy(p => p.Text);
+
             return View();
         }
 
@@ -47,7 +67,7 @@ namespace WSPManage.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "rentalID,customerID,propertyID,DateCreated,UserCreated,DateModified,UserModified")] rental rental)
+        public async Task<ActionResult> Create([Bind(Include = "rentalID,Active,customerID,propertyID,customerIDName,propertyIDName,RentalStartDate,RentalEndDate,RentalNotes,MonthlyRentAmount,LatePaymentAmount,Judgement,CourtDate,EvictionDate,RandPSentDate,WritSentDate,AgreeToVacateDate,CourtCosts,LegalFees,DateCreated,UserCreated,DateModified,UserModified")] rental rental)
         {
             if (ModelState.IsValid)
             {
@@ -67,6 +87,10 @@ namespace WSPManage.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             rental rental = await db.rentals.FindAsync(id);
+
+            ViewBag.propertyIDSelectList = new SelectList(db.properties, "propertyID", "PhysicalAddress").OrderBy(p => p.Text);
+            ViewBag.customerIDSelectList = new SelectList(db.customers, "customerID", "FullNameLastFirst").OrderBy(p => p.Text);
+
             if (rental == null)
             {
                 return HttpNotFound();
@@ -79,7 +103,7 @@ namespace WSPManage.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "rentalID,customerID,propertyID,DateCreated,UserCreated,DateModified,UserModified")] rental rental)
+        public async Task<ActionResult> Edit([Bind(Include = "rentalID,Active,customerID,propertyID,customerIDName,propertyIDName,RentalStartDate,RentalEndDate,RentalNotes,MonthlyRentAmount,LatePaymentAmount,Judgement,CourtDate,EvictionDate,RandPSentDate,WritSentDate,AgreeToVacateDate,CourtCosts,LegalFees,DateCreated,UserCreated,DateModified,UserModified")] rental rental)
         {
             if (ModelState.IsValid)
             {
